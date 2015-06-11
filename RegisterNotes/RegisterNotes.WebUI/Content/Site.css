@@ -1,0 +1,53 @@
+﻿body {
+    padding-top: 70px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*
+input, 
+select,
+textarea {
+    max-width: 280px;
+}
+*/
+
+.navbar-default .navbar-brand {
+    color: #d9534f;
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #337ab7;
+}
+
+.list-group-item {
+    border: hidden;
+}
+
+.list-group-item:first-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.list-group-item:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.dropdown-menu {
+    padding: 0px;
+}
+
+.dropdown-menu > li > a {
+    padding: 10px 15px;
+}
+
+.popover {
+    width: 220px;
+}

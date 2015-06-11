@@ -1,0 +1,52 @@
+﻿@*
+    Every namespace that I refer to in a Razor view needs to be used explicitly,
+    declared in the web.config file or applied with a @using expression.
+*@
+
+@using RegisterNotes.WebUI.Models
+@using RegisterNotes.WebUI.HtmlHelpers
+
+@model NotesListViewModel
+
+@{
+    ViewBag.Title = @MUI.Language.TtlListNotes;
+}
+
+<div class="row">
+    <div class=" col-xs-12 alert alert-warning" style="padding-left: 0px; padding-right: 0px;">
+        <div class="col-sm-3">
+            <a class="btn btn-warning col-xs-12" href="/Note/Tasks"><span class="fa fa-file-text-o" aria-hidden="true"></span>&nbsp&nbsp @ViewBag.Title</a>            
+        </div>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                <input class="form-control valid" placeholder="@MUI.Language.PhlSearch">
+                <span class="input-group-btn">
+                    <button class="btn btn-default">@MUI.Language.BtnSearch</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-3">
+        <div class="col-xs-12 alert alert-info">
+            @* RenderAction return void and can't used with Razor, need write as C# code *@
+            @* Maybe change on @Html.Action("_Menu", "Nav") *@
+            @{ Html.RenderAction("_Menu", "Nav"); }
+
+            @Html.ActionLink(@MUI.Language.NavAddNote, "List", "Note", null, new { @class = "btn btn-default col-xs-12" })
+        </div>
+    </div>
+    <div class="col-md-9">
+        @foreach (var p in Model.Notes)
+        {
+            Html.RenderPartial("_NoteSummary", p);
+        }
+
+        <div class="btn-group">
+            @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, pblc = Model.CurrentPblc }))
+        </div>
+    </div>
+</div>

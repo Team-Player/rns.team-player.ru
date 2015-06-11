@@ -1,0 +1,74 @@
+﻿@using RegisterNotes.WebUI.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = @MUI.Language.TtlLogin;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>@MUI.Language.TtlLoginLocal</h4>
+                <hr />
+                <div class="input-group col-sm-offset-1">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="input-group col-sm-offset-1 col-sm-10">
+                    <span class="input-group-addon"><span class="fa fa-at"></span></span>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = @MUI.Language.PhlEmailAddress })
+                </div>
+                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                <br />
+
+                <div class="input-group col-sm-offset-1 col-sm-10">
+                    <span class="input-group-addon"><span class="fa fa-key"></span></span>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = @MUI.Language.PhlPassword })
+                </div>
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                <br />
+
+                <div class="input-group col-xs-12">
+                    <div class="checkbox pull-left col-xs-offset-1 col-xs-6 col-sm-offset-2 col-sm-5">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { disabled = "disabled" })
+                        @Html.LabelFor(m => m.RememberMe, new { disabled = "disabled" })
+                    </div>
+                    <div class="col-xs-offset-0 col-xs-5 col-sm-4">
+                        <input type="submit" class="btn btn-primary col-xs-10" value="@MUI.Language.BtnLogin" />
+                    </div>
+                </div>
+                <br />
+
+                <div class="input-group col-xs-12">
+                    @Html.ActionLink(@MUI.Language.BtnRegNewUser, "Register", "", new { @class = "btn btn-default col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8", @disabled = "disabled" })
+                </div>
+
+                <hr />
+            }
+        </section>
+
+    </div> <!--col-->
+
+    <div class="col-md-6">
+        <h4>@MUI.Language.TtlMessageForUsers</h4>
+        <hr />
+        <div class="alert alert-info col-xs-12">
+            <p>@MUI.Language.MsgLine1</p>
+            <p>@MUI.Language.MsgLine2</p>
+            <p>@MUI.Language.MsgLine3</p>
+            <hr />
+            <span class="h4 pull-right">@MUI.Language.TtlAdminSign</span>
+        </div>
+    </div> <!--col-->
+
+</div> <!--row-->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

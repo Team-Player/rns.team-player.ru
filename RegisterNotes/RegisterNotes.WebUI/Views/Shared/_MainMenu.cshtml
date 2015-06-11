@@ -1,0 +1,62 @@
+﻿<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            @* @Html.ActionLink("Регистрация сообщений", "List", "Note", new { area = "" }, new { @class = "navbar-brand" }) *@
+            <a class="navbar-brand" href="/"><span class="fa fa-check-square-o"></span>&nbsp;&nbsp; @MUI.Language.TtlBrandName</a>
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/Note/List"><span class="fa fa-pencil" aria-hidden="true"></span>&nbsp @MUI.Language.MenuNoteList</a>
+                </li>
+                <li>
+                    <a href="/Admin/LogFile"><span class="fa fa-bookmark-o" aria-hidden="true"></span>&nbsp @MUI.Language.MenuLogFile</a>
+                </li>
+            </ul>
+
+            <div class="pull-right">
+                @using (Html.BeginForm("ChangeCulture", "Culture", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left", returnUrl = Request.QueryString["ReturnUrl"] }))
+                {
+                    string returnUrl = Request.Url.LocalPath;
+                    string lang = System.Threading.Thread.CurrentThread.CurrentCulture.IetfLanguageTag;
+                    var btnLang = new RegisterNotes.WebUI.Entities.Languages();
+                    btnLang = RegisterNotes.WebUI.Entities.MultilingualUI.GetLanguage(lang);
+
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown" style="width: 170px;">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="@btnLang.LangCurrencySpan" aria-hidden="true"></span>
+                                &nbsp @btnLang.LangFullName&nbsp&nbsp
+                                <span class="badge">@btnLang.LangBadge</span>&nbsp<span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu list-group" role="menu">
+                                @{
+                    foreach (var i in @RegisterNotes.WebUI.Entities.MultilingualUI.AvailableLanguages)
+                    {
+                        <li>
+                            <a href="/Culture/ChangeLanguage?lang=@i.LangCultureName&returnUrl=@returnUrl" class="list-group-item" style="width: 168px;">
+                                <span class="@i.LangCurrencySpan" aria-hidden="true"></span>
+                                &nbsp @i.LangFullName&nbsp&nbsp
+                                <span class="badge">@i.LangBadge</span>
+                            </a>
+                        </li>
+                    }
+                                }
+                            </ul>
+                        </li> <!-- dropdown -->
+                    </ul>
+                }
+                @Html.Partial("_LoginMenu")
+            </div>
+        </div>
+    </div>
+</div>

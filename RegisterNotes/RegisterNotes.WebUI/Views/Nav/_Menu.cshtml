@@ -1,0 +1,35 @@
+﻿@model IEnumerable<string>
+
+<div class="panel panel-default">
+    <div class="panel-heading">@MUI.Language.NavCategories:</div>
+
+    @* Display selected category - SelectedPblc *@
+    @* <div class="panel-body"><span>Selected: @ViewBag.SelectedPblc</span></div> *@
+
+    <div class="list-group">
+        @Html.ActionLink(@MUI.Language.NavFullList, "List", "Note", null, new { @class = "list-group-item" + (ViewBag.SelectedPblc == null ? " active" : "") })
+
+        @foreach (var link in Model)
+        {
+            var linkName = "";
+            switch (link)
+            {
+                case "Public":
+                    linkName = @MUI.Language.NavPublic;
+                    break;
+
+                case "Private":
+                    linkName = @MUI.Language.NavPrivate;
+                    break;
+
+                default:
+                    linkName = @MUI.Language.NavDnDef;
+                    break;
+            }
+
+            @Html.RouteLink(linkName, new { controller = "Note", action = "List", pblc = link, page = 1 },
+                         new { @class = "list-group-item" + (link == ViewBag.SelectedPblc ? " active" : "") })
+        }
+    </div>
+</div>
+

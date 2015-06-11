@@ -1,0 +1,40 @@
+﻿@model RegisterNotes.Domain.Entities.Note
+
+<div class="well">
+
+    @{
+        var str = "";
+        var cls = "";
+        switch (@Model.Pblc)
+        {
+            case "Public":
+                str = "success";
+                cls = "fa fa-group";
+                break;
+
+            case "Private":
+                str = "danger";
+                cls = "fa fa-user-secret";
+                break;
+
+            default:
+                str = "info";
+                cls = "fa fa-user";                
+                break;
+        }
+    }
+
+    <h3>
+        <span class="text-@str">
+            <span class="@cls"></span>
+        </span>
+        <span class="lead text-@str">: @Model.Title</span>
+    </h3>
+
+    <p class="alert alert-@str">@Model.Body</p>
+
+    <span class="lead">
+        <span class="label label-@str">@Model.CreateTime</span>
+    </span>
+
+</div>

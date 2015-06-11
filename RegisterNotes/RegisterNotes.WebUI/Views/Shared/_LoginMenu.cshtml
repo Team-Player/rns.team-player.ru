@@ -1,0 +1,36 @@
+﻿@* @using Microsoft.AspNet.Identity *@
+@using System.Security.Claims
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        var identity = (ClaimsIdentity)User.Identity;
+        var name = identity.Name;
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#" title="@MUI.Language.MenuManage"><span class="fa fa-user"></span>&nbsp&nbsp @name</a>
+            </li>
+            <li>
+                <a href="javascript:document.getElementById('logoutForm').submit()"><span class="fa fa-sign-out"></span>&nbsp @MUI.Language.MenuLogout</a>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="@ViewBag.mmRegister">
+            <a href="#" id="registerLink" title="@MUI.Language.PpvRegService :  @MUI.Language.PpvCallAdmin">
+                <span class="fa fa-user-plus"></span>
+                &nbsp @MUI.Language.MenuRegistration
+            </a>
+        </li>
+        <li class="@ViewBag.mmLogin">
+            <a href="/Account/Login" id="loginLink"><span class="fa fa-sign-in"></span>&nbsp @MUI.Language.MenuLogin</a>
+        </li>
+    </ul>
+}
